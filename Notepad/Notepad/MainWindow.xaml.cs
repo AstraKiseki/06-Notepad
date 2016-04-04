@@ -31,32 +31,30 @@ namespace Notepad
 
         string currentFile;
 
+        public void OpenMethod()
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            Nullable<bool> userWantsToOpenFile = ofd.ShowDialog();
+            if (userWantsToOpenFile == true)
+            {
+                File.ReadAllText(ofd.FileName);
+                string newFile = ofd.FileName;
+                TextBox.Text = newFile;
+                currentFile = ofd.FileName;
+            }
+        }
+
         private void Open_Click(object sender, RoutedEventArgs e)
         {
             if (TextBox.Text.Length > 0)
             {
                 MessageBox.Show("Are you sure you want to open a new file?  You'll lose this one!", "(Go Save This One First!", MessageBoxButton.YesNo);
-                OpenFileDialog ofd = new OpenFileDialog();
-                Nullable<bool> userWantsToOpenFile = ofd.ShowDialog();
-                if (userWantsToOpenFile == true)
-                {
-                    File.ReadAllText(ofd.FileName);
-                    string newFile = ofd.FileName;
-                    TextBox.Text = newFile;
-                    currentFile = ofd.FileName;
+                OpenMethod();
                 }
-            }
-            else /// AAAAAH I AM REPEATING CODE
+          
+            else
             {
-                OpenFileDialog ofd = new OpenFileDialog();
-                Nullable<bool> userWantsToOpenFile = ofd.ShowDialog();
-                if (userWantsToOpenFile == true)
-                {
-                    File.ReadAllText(ofd.FileName);
-                    string newFile = ofd.FileName;
-                    TextBox.Text = newFile;
-                    currentFile = ofd.FileName;
-                }
+                OpenMethod();
             }
         }
 
